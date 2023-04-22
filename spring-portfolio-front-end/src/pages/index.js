@@ -19,6 +19,29 @@ export default function Home() {
           </button>
         </div>
       </nav>
+      <div className="container text-center">
+        <div className="badge bg-secondary fs-2">Remaining Funds</div>
+        <div className="d-flex justify-content-center fs-1">
+          <div className="badge bg-secondary">$</div>
+          <div className="badge bg-secondary">10,000,000.00</div>
+          <div className="badge bg-secondary">USD</div>
+        </div>
+      </div>
+      <div className="container text-center">
+        <div className="badge bg-dark fs-2">Investments</div>
+        <div className="row">
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr style={{textAlign: "center", color: "white"}}>
+                <th>Investment Name</th>
+                <th>investment Type</th>
+                <th>Funds Invested</th>
+                <th>Date Invested</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
       <Footer footerText={"Created by Ricky"}/>
     </>
   )
