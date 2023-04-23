@@ -7,8 +7,8 @@ export default function Dropdown({ title, items }) {
       <ul className="dropdown-menu dropdown-menu-end">
         {
           items.map(
-            item =>
-              <li key={item.id}><button className="dropdown-item" type="button">{item.name}</button></li>
+          item =>
+            <li key={item.id}><button className="dropdown-item" type="button">{item.name}</button></li>
           )
         }
       </ul>

@@ -8,6 +8,7 @@ import Dropdown from '../../components/dropdown'
 
 import { sortTitle, sortActions } from '../../data/sort-titles'
 import { actionTitle, actions } from '../../data/action-titles'
+import { exampleInvestments } from '../../data/example-investments'
 
 export default function Home() {
   return (
@@ -27,7 +28,7 @@ export default function Home() {
           <Dropdown className="" title={actionTitle} items={actions} />
           <Dropdown title={sortTitle} items={sortActions} />
         </div>
-        <ListInvestments />
+        <ListInvestments investments={exampleInvestments}/>
       </div>
       <Footer footerText={"Created by Ricky"}/>
     </>
