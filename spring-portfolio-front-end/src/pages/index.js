@@ -33,18 +33,26 @@ export default function Home() {
       </div>
       <div className="container text-center">
         <div className="badge bg-dark fs-2">Investments</div>
-        <div className="d-flex justify-content-between dropdown">
-          <button class="btn btn-primary">Add investment</button>
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Sort
-          </button>
+        <div className="d-flex justify-content-between">
+            <button class="btn btn-primary">Add investment</button>
+            <div className="btn-group">
+              <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" >
+                Sort
+              </button>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li><button className="dropdown-item" type="button">Name (A-Z)</button></li>
+                <li><button className="dropdown-item" type="button">Name (Z-A)</button></li>
+                <li><button className="dropdown-item" type="button">Funds (Lowest-Greatest)</button></li>
+                <li><button className="dropdown-item" type="button">Funds (Greatest-Lowest)</button></li>
+              </ul>
+            </div>
         </div>
         <div className="row">
           <table className="table table-striped table-bordered">
             <thead>
               <tr style={{textAlign: "center", color: "white"}}>
                 <th>Investment Name</th>
-                <th>investment Type</th>
+                <th>Investment Type</th>
                 <th>Funds Invested</th>
                 <th>Date Invested</th>
               </tr>
