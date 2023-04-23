@@ -21,8 +21,8 @@ export default function Home() {
       </nav>
       <div className="container text-center mb-5">
         <div className="badge bg-secondary fs-2">Remaining Funds</div>
-        <div className="d-flex justify-content-center fs-1">
-          <div className="badge bg-secondary">$</div>
+        <div className="d-flex justify-content-center fs-1" style={{marginLeft: "36px"}}>
+          <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>$</div>
           <div className="badge bg-secondary" style={{width: "8em"}}>10,000,000.00</div>
           <div className="badge bg-secondary">USD</div>
           <button type="button" className="btn btn-primary" style={{marginLeft: "10px"}}>Add funds</button>
