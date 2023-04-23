@@ -7,6 +7,7 @@ import FundsDisplay from '../../components/funds-display'
 import Dropdown from '../../components/dropdown'
 
 import { sortTitle, sortActions } from '../../data/sort-titles'
+import { actionTitle, actions } from '../../data/action-titles'
 
 export default function Home() {
   return (
@@ -21,9 +22,10 @@ export default function Home() {
       <FundsDisplay funds={10000000} currency={"USD"} />
       <div className="container text-center">
         <div className="badge bg-dark fs-2">Investments</div>
-        <div className="d-flex justify-content-between">
-            <button class="btn btn-primary">Add investment</button>
-            <Dropdown title={sortTitle} items={sortActions} />
+        <div className="d-flex">
+          <button className="me-auto btn btn-primary">Add investment</button>
+          <Dropdown className="" title={actionTitle} items={actions} />
+          <Dropdown title={sortTitle} items={sortActions} />
         </div>
         <ListInvestments />
       </div>
