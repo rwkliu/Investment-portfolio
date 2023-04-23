@@ -4,6 +4,7 @@ import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
 import SortDropdown from '../../components/sort-dropdown'
 import ListInvestments from '../../components/list-investments'
+import FundsDisplay from '../../components/funds-display'
 
 export default function Home() {
   return (
@@ -15,18 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={4}/>
-      <div className="container text-center mb-5">
-        <button type="button" className="btn btn-link" disabled style={{visibility: "hidden"}}>Add funds</button>
-        <div className="badge bg-secondary fs-1">
-          Remaining Funds
-          <div className="d-flex fs-1" style={{paddingTop: "5px"}}>
-            <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>$</div>
-            <div className="badge bg-secondary" style={{width: "7em", paddingLeft: "5px", paddingRight: "5px"}}>10,000,000.00</div>
-            <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>USD</div>
-          </div>
-        </div>
-        <button type="button" className="btn btn-primary" style={{marginLeft: "10px"}}>Add funds</button>
-      </div>
+      <FundsDisplay funds={10000000} currency={"USD"} />
       <div className="container text-center">
         <div className="badge bg-dark fs-2">Investments</div>
         <div className="d-flex justify-content-between">
