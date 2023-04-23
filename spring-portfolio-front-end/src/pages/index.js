@@ -20,17 +20,21 @@ export default function Home() {
         </div>
       </nav>
       <div className="container text-center mb-5">
-        <div className="badge bg-secondary fs-2">Remaining Funds</div>
-        <div className="d-flex justify-content-center fs-1" style={{marginLeft: "36px"}}>
-          <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>$</div>
-          <div className="badge bg-secondary" style={{width: "8em"}}>10,000,000.00</div>
-          <div className="badge bg-secondary">USD</div>
-          <button type="button" className="btn btn-primary" style={{marginLeft: "10px"}}>Add funds</button>
+        <button type="button" className="btn btn-link" disabled style={{visibility: "hidden"}}>Add funds</button>
+        <div className="badge bg-secondary fs-1">
+          Remaining Funds
+          <div className="d-flex fs-1" style={{paddingTop: "5px"}}>
+            <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>$</div>
+            <div className="badge bg-secondary" style={{width: "7em", paddingLeft: "5px", paddingRight: "5px"}}>10,000,000.00</div>
+            <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>USD</div>
+          </div>
         </div>
+        <button type="button" className="btn btn-primary" style={{marginLeft: "10px"}}>Add funds</button>
       </div>
       <div className="container text-center">
         <div className="badge bg-dark fs-2">Investments</div>
-        <div className="d-flex flex-row-reverse dropdown">
+        <div className="d-flex justify-content-between dropdown">
+          <button class="btn btn-primary">Add investment</button>
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Sort
           </button>
