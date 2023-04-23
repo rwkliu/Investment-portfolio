@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
 import SortDropdown from '../../components/sort-dropdown'
+import ListInvestments from '../../components/list-investments'
 
 export default function Home() {
   return (
@@ -32,18 +33,7 @@ export default function Home() {
             <button class="btn btn-primary">Add investment</button>
             <SortDropdown />
         </div>
-        <div className="row">
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr style={{textAlign: "center", color: "white"}}>
-                <th>Investment Name</th>
-                <th>Investment Type</th>
-                <th>Funds Invested</th>
-                <th>Date Invested</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
+        <ListInvestments />
       </div>
       <Footer footerText={"Created by Ricky"}/>
     </>
