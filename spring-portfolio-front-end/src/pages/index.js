@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Footer from '../../components/footer-component'
+import Navbar from '../../components/navbar'
 
 export default function Home() {
   return (
@@ -11,14 +12,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav class="navbar bg-dark"> 
-        <div class="container-fluid">
-          <Link href="/" class="navbar-brand mb-0" style={{fontSize: "35px", color: "white"}}>My Spring Portfolio</Link>
-          <button type="button" class="btn btn-primary">
-            Notifications <span class="badge text-bg-secondary">4</span>
-          </button>
-        </div>
-      </nav>
+      <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={4}/>
       <div className="container text-center mb-5">
         <button type="button" className="btn btn-link" disabled style={{visibility: "hidden"}}>Add funds</button>
         <div className="badge bg-secondary fs-1">
