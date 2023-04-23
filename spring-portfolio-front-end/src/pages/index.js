@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
+import SortDropdown from '../../components/sort-dropdown'
 
 export default function Home() {
   return (
@@ -29,17 +30,7 @@ export default function Home() {
         <div className="badge bg-dark fs-2">Investments</div>
         <div className="d-flex justify-content-between">
             <button class="btn btn-primary">Add investment</button>
-            <div className="btn-group">
-              <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" >
-                Sort
-              </button>
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li><button className="dropdown-item" type="button">Name (A-Z)</button></li>
-                <li><button className="dropdown-item" type="button">Name (Z-A)</button></li>
-                <li><button className="dropdown-item" type="button">Funds (Lowest-Greatest)</button></li>
-                <li><button className="dropdown-item" type="button">Funds (Greatest-Lowest)</button></li>
-              </ul>
-            </div>
+            <SortDropdown />
         </div>
         <div className="row">
           <table className="table table-striped table-bordered">
