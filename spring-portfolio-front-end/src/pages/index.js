@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
-import SortDropdown from '../../components/sort-dropdown'
 import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
+import Dropdown from '../../components/dropdown'
+
+import { sortTitle, sortActions } from '../../data/sort-titles'
 
 export default function Home() {
   return (
@@ -21,7 +23,7 @@ export default function Home() {
         <div className="badge bg-dark fs-2">Investments</div>
         <div className="d-flex justify-content-between">
             <button class="btn btn-primary">Add investment</button>
-            <SortDropdown />
+            <Dropdown title={sortTitle} items={sortActions} />
         </div>
         <ListInvestments />
       </div>
