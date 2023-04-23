@@ -19,16 +19,22 @@ export default function Home() {
           </button>
         </div>
       </nav>
-      <div className="container text-center">
+      <div className="container text-center mb-5">
         <div className="badge bg-secondary fs-2">Remaining Funds</div>
         <div className="d-flex justify-content-center fs-1">
           <div className="badge bg-secondary">$</div>
-          <div className="badge bg-secondary">10,000,000.00</div>
+          <div className="badge bg-secondary" style={{width: "8em"}}>10,000,000.00</div>
           <div className="badge bg-secondary">USD</div>
+          <button type="button" className="btn btn-primary" style={{marginLeft: "10px"}}>Add funds</button>
         </div>
       </div>
       <div className="container text-center">
         <div className="badge bg-dark fs-2">Investments</div>
+        <div className="d-flex flex-row-reverse dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort
+          </button>
+        </div>
         <div className="row">
           <table className="table table-striped table-bordered">
             <thead>
