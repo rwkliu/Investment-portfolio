@@ -4,8 +4,5 @@ export const actions = [{
   name: "View"
 }, {
   id: 1,
-  name: "Update"
-}, {
-  id: 2,
   name: "Delete"
 }];

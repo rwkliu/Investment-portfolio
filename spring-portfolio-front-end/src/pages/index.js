@@ -22,7 +22,7 @@ export default function Home() {
       <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={4}/>
       <FundsDisplay funds={10000000} currency={"USD"} />
       <div className="container text-center">
-        <div className="badge bg-dark fs-2">Investments</div>
+        <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
           <button className="me-auto btn btn-primary">Add investment</button>
           <Dropdown className="" title={actionTitle} items={actions} />
