@@ -4,6 +4,7 @@ export default function ListInvestments({ investments }) {
       <table className="table table-bordered" style={{textAlign: "center", color: "white"}}>
         <thead>
           <tr>
+            <th><input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input></th>
             <th>Investment Name</th>
             <th>Investment Type</th>
             <th>Funds Invested</th>
@@ -15,6 +16,7 @@ export default function ListInvestments({ investments }) {
             investments.map(
               investment =>
               <tr key={investment.id}>
+                <td><input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input></td>
                 <td>{investment.name}</td>
                 <td>{investment.type}</td>
                 <td>{investment.funds}</td>
