@@ -5,6 +5,7 @@ import Navbar from '../../components/navbar'
 import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
 import Dropdown from '../../components/dropdown'
+import AddInvestment from '../../components/add-investment'
 
 import { sortTitle, sortActions } from '../../data/sort-titles'
 import { actionTitle, actions } from '../../data/action-titles'
@@ -24,7 +25,7 @@ export default function Home() {
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
-          <button className="me-auto btn btn-primary">Add investment</button>
+          <AddInvestment buttonClass="me-auto btn btn-primary"/>
           <Dropdown className="" title={actionTitle} items={actions} />
           <Dropdown title={sortTitle} items={sortActions} />
         </div>
