@@ -6,7 +6,7 @@ export default function Navbar({ brandName, notificationName, numAlerts }) {
       <div className="container-fluid">
         <Link href="/" className="navbar-brand mb-0" style={{fontSize: "35px", color: "white"}}>{brandName}</Link>
         <button type="button" className="btn btn-primary">
-          {notificationName}<span class="badge text-bg-secondary">{numAlerts}</span>
+          {notificationName}<span className="badge text-bg-secondary">{numAlerts}</span>
         </button>
       </div>
     </nav>
