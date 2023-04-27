@@ -5,7 +5,7 @@ export default function SelectForm({ defaultSelect, items }) {
       {
         items.map(
           item =>
-            <option value={item.id}>{item.name}</option>
+            <option key={item.id} value={item.name}>{item.name}</option>
         )
       }
     </select>
