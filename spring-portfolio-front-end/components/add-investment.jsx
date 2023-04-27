@@ -1,3 +1,6 @@
+import SelectForm from "./select-form"
+import { investmentTypes, investmentTypesTitle } from "../data/investment-types"
+
 export default function AddInvestment({ buttonClass }) {
   return (
     <>
@@ -20,7 +23,7 @@ export default function AddInvestment({ buttonClass }) {
                 </div>
                 <div className="mb-2">
                   <label htmlFor="investment-type" className="col-form-label">Investment Type</label>
-                  <input type="text" className="form-control" id="InvestmentType"></input>
+                  <SelectForm defaultSelect={investmentTypesTitle} items={investmentTypes} />
                 </div>
                 <div className="mb-2">
                   <label htmlFor="funds-invested" className="col-form-label">Funds Invested</label>
