@@ -1,8 +1,7 @@
 package com.liur.myspringportfoliobackend.controller;
 
-import com.liur.myspringportfoliobackend.entity.InvestmentEntity;
-import com.liur.myspringportfoliobackend.exception.ResourceNotFoundException;
-import com.liur.myspringportfoliobackend.repository.InvestmentRepository;
+import com.liur.myspringportfoliobackend.model.Investment;
+import com.liur.myspringportfoliobackend.service.InvestmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,21 +13,24 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class InvestmentController {
-  private final InvestmentRepository investmentRepository;
+  private final InvestmentService investmentService;
 
   // Constructor-based dependency injection
-  public InvestmentController(InvestmentRepository investmentRepository) {
-    this.investmentRepository = investmentRepository;
+  public InvestmentController(InvestmentService investmentService) {
+    this.investmentService = investmentService;
+  }
+
+  // Add investment
+  @PostMapping("/investments")
+  public Investment createInvestment(@RequestBody Investment newInvestment) {
+    investmentService.createInvestment(newInvestment);
+    return newInvestment;
   }
 
   // Get investments
   @GetMapping("/investments")
-  public List<InvestmentEntity> getAllInvestments() { return investmentRepository.findAll(); }
-
-  // Add investment
-  @PostMapping("/investments")
-  public InvestmentEntity createInvestment(@RequestBody InvestmentEntity newInvestment) {
-    return investmentRepository.save(newInvestment);
+  public List<Investment> getAllInvestments() {
+    return investmentService.getAllInvestments();
   }
 
   // Update investment
@@ -37,28 +39,18 @@ public class InvestmentController {
     produces = "application/json",
     method = {RequestMethod.PUT}
   )
-  public ResponseEntity<InvestmentEntity> updateInvestment(@PathVariable Long investmentId, @RequestBody InvestmentEntity newInvestmentDetails) {
-    InvestmentEntity investmentEntity = investmentRepository.findById(investmentId)
-      .orElseThrow(() -> new ResourceNotFoundException("Investment record does not exist with this id: " + investmentId));
-
-    investmentEntity.setInvestmentName(newInvestmentDetails.getInvestmentName());
-    investmentEntity.setInvestmentType(newInvestmentDetails.getInvestmentType());
-    investmentEntity.setFundsInvested(newInvestmentDetails.getFundsInvested());
-    investmentEntity.setDateInvested(newInvestmentDetails.getDateInvested());
-    investmentEntity.setDescription(newInvestmentDetails.getDescription());
-
-    InvestmentEntity updatedInvestment = investmentRepository.save(investmentEntity);
-    return ResponseEntity.ok(updatedInvestment);
+  public ResponseEntity<Investment> updateInvestment(@PathVariable Long investmentId, @RequestBody Investment newInvestmentDetails) {
+    newInvestmentDetails = investmentService.updateInvestment(investmentId, newInvestmentDetails);
+    return ResponseEntity.ok(newInvestmentDetails);
   }
 
   // Delete investment
   @DeleteMapping("/investments/{investmentId}")
   public ResponseEntity<Map<String, Boolean>> deleteInvestment(@PathVariable Long investmentId) {
-    InvestmentEntity investmentEntity = investmentRepository.findById(investmentId)
-      .orElseThrow(() -> new ResourceNotFoundException("Investment record does not exist with this id: " + investmentId));
-    investmentRepository.delete(investmentEntity);
+    boolean deleted = false;
+    deleted = investmentService.deleteInvestment(investmentId);
     Map<String, Boolean> response = new HashMap<>();
-    response.put("deleted", Boolean.TRUE);
+    response.put("deleted", deleted);
     return ResponseEntity.ok(response);
   }
 }
