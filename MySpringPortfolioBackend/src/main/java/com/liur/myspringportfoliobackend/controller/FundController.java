@@ -1,8 +1,7 @@
 package com.liur.myspringportfoliobackend.controller;
 
-import com.liur.myspringportfoliobackend.entity.FundEntity;
-import com.liur.myspringportfoliobackend.exception.ResourceNotFoundException;
-import com.liur.myspringportfoliobackend.repository.FundRepository;
+import com.liur.myspringportfoliobackend.model.Fund;
+import com.liur.myspringportfoliobackend.service.FundService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,49 +13,42 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class FundController {
-  private final FundRepository fundRepository;
+  private final FundService fundService;
 
-  // Constructor-based dependency injection
-  public FundController(FundRepository fundRepository) {
-    this.fundRepository = fundRepository;
-  }
-
-  // Get available funds
-  @GetMapping("/funds")
-  public List<FundEntity> getAllFunds() {
-    return fundRepository.findAll();
+  public FundController(FundService fundService)  {
+    this.fundService = fundService;
   }
 
   // Add funds record
   @PostMapping("/funds")
-  public FundEntity createFund(@RequestBody FundEntity fund) {
-    return fundRepository.save(fund);
+  public Fund createFund(@RequestBody Fund fund) {
+    return fundService.createFund(fund);
+  }
+
+  // Get available funds
+  @GetMapping("/funds")
+  public List<Fund> getAllFunds() {
+    return fundService.getAllFunds();
   }
 
   // Update fund
-//  @PutMapping("/funds/{fundId}")
   @RequestMapping(
     value = "/funds/{fundId}",
     produces = "application/json",
     method = {RequestMethod.PUT}
   )
-  public ResponseEntity<FundEntity> updateFund(@PathVariable Long fundId, @RequestBody FundEntity newFundAmount) {
-    FundEntity fundEntity = fundRepository.findById(fundId)
-      .orElseThrow(() -> new ResourceNotFoundException("Fund record does not exist with id: " + fundId));
-
-    fundEntity.setFunds(newFundAmount.getFunds());
-    FundEntity updatedFunds = fundRepository.save(fundEntity);
-    return ResponseEntity.ok(updatedFunds);
+  public ResponseEntity<Fund> updateFund(@PathVariable Long fundId, @RequestBody Fund newFundAmount) {
+    newFundAmount = fundService.updateFund(fundId, newFundAmount);
+    return ResponseEntity.ok(newFundAmount);
   }
 
   // Delete fund
   @DeleteMapping("/funds/{fundId}")
   public ResponseEntity<Map<String, Boolean>> deleteFund(@PathVariable Long fundId) {
-    FundEntity fund = fundRepository.findById(fundId)
-        .orElseThrow(() -> new ResourceNotFoundException("Fund record does not exist with id: " + fundId));
-    fundRepository.delete(fund);
+    boolean deleted = false;
+    deleted = fundService.deleteFund(fundId);
     Map<String, Boolean> response = new HashMap<>();
-    response.put("deleted", Boolean.TRUE);
+    response.put("deleted", deleted);
     return ResponseEntity.ok(response);
   }
 }
