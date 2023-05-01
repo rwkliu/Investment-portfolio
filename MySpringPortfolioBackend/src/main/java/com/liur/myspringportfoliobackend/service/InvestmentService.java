@@ -11,5 +11,5 @@ public interface InvestmentService {
 
   Investment updateInvestment(Long investmentId, Investment investment);
 
-  boolean deleteInvestment(Long investmentId);
+  boolean deleteInvestments(List<Long> ids);
 }

@@ -1,5 +1,6 @@
 package com.liur.myspringportfoliobackend.controller;
 
+import com.liur.myspringportfoliobackend.model.IdList;
 import com.liur.myspringportfoliobackend.model.Investment;
 import com.liur.myspringportfoliobackend.service.InvestmentService;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +45,10 @@ public class InvestmentController {
     return ResponseEntity.ok(newInvestmentDetails);
   }
 
-  // Delete investment
-  @DeleteMapping("/investments/{investmentId}")
-  public ResponseEntity<Map<String, Boolean>> deleteInvestment(@PathVariable Long investmentId) {
-    boolean deleted = false;
-    deleted = investmentService.deleteInvestment(investmentId);
+  // Delete investments
+  @DeleteMapping("/delete-investments")
+  public ResponseEntity<Map<String, Boolean>> deleteInvestments(@RequestBody IdList idList) {
+    boolean deleted = investmentService.deleteInvestments(idList.getIdList());
     Map<String, Boolean> response = new HashMap<>();
     response.put("deleted", deleted);
     return ResponseEntity.ok(response);

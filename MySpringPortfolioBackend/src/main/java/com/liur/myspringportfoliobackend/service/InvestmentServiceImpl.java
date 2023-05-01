@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class InvestmentServiceImpl implements InvestmentService {
-  private InvestmentRepository investmentRepository;
+  private final InvestmentRepository investmentRepository;
 
   // Constructor-based dependency injection
   public InvestmentServiceImpl(InvestmentRepository investmentRepository) {
@@ -59,12 +59,13 @@ public class InvestmentServiceImpl implements InvestmentService {
     return investment;
   }
 
-
   @Override
-  public boolean deleteInvestment(Long investmentId) {
-    InvestmentEntity investmentEntity = investmentRepository.findById(investmentId)
-        .orElseThrow(() -> new ResourceNotFoundException("Investment record does not exist with this id: " + investmentId));
-    investmentRepository.delete(investmentEntity);
+  public boolean deleteInvestments(List<Long> ids) {
+    List<InvestmentEntity> investmentEntities = investmentRepository.findAllById(ids);
+    if (investmentEntities.size() == 0) {
+      return false;
+    }
+    investmentRepository.deleteAll(investmentEntities);
     return true;
   }
 }
