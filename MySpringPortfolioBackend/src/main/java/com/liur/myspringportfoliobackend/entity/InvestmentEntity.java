@@ -9,6 +9,9 @@ public class InvestmentEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long investmentId;
 
+  @Column(name = "fund_id")
+  private long fundId;
+
   @Column(name = "investment_name")
   private String investmentName;
 
@@ -27,8 +30,9 @@ public class InvestmentEntity {
   public InvestmentEntity() {
   }
 
-  public InvestmentEntity(long investmentId, String investmentName, String investmentType, long fundsInvested, String dateInvested, String description) {
+  public InvestmentEntity(long investmentId, long fundId, String investmentName, String investmentType, long fundsInvested, String dateInvested, String description) {
     this.investmentId = investmentId;
+    this.fundId = fundId;
     this.investmentName = investmentName;
     this.investmentType = investmentType;
     this.fundsInvested = fundsInvested;
@@ -42,6 +46,14 @@ public class InvestmentEntity {
 
   public void setInvestmentId(long investmentId) {
     this.investmentId = investmentId;
+  }
+
+  public long getFundId() {
+    return fundId;
+  }
+
+  public void setFundId(long fundId) {
+    this.fundId = fundId;
   }
 
   public String getInvestmentName() {

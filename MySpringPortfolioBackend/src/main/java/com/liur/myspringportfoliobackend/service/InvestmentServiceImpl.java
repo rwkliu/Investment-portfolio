@@ -34,6 +34,7 @@ public class InvestmentServiceImpl implements InvestmentService {
         .stream()
         .map(investmentEntity -> new Investment(
             investmentEntity.getInvestmentId(),
+            investmentEntity.getFundId(),
             investmentEntity.getInvestmentName(),
             investmentEntity.getInvestmentType(),
             investmentEntity.getFundsInvested(),

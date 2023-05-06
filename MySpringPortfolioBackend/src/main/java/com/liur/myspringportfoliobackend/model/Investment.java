@@ -2,6 +2,7 @@ package com.liur.myspringportfoliobackend.model;
 
 public class Investment {
   private long investmentId;
+  private long fundId;
   private String investmentName;
   private String investmentType;
   private long fundsInvested;
@@ -11,8 +12,9 @@ public class Investment {
   public Investment() {
   }
 
-  public Investment(long investmentId, String investmentName, String investmentType, long fundsInvested, String dateInvested, String description) {
+  public Investment(long investmentId, long fundId, String investmentName, String investmentType, long fundsInvested, String dateInvested, String description) {
     this.investmentId = investmentId;
+    this.fundId = fundId;
     this.investmentName = investmentName;
     this.investmentType = investmentType;
     this.fundsInvested = fundsInvested;
@@ -26,6 +28,14 @@ public class Investment {
 
   public void setInvestmentId(long investmentId) {
     this.investmentId = investmentId;
+  }
+
+  public long getFundId() {
+    return fundId;
+  }
+
+  public void setFundId(long fundId) {
+    this.fundId = fundId;
   }
 
   public String getInvestmentName() {
