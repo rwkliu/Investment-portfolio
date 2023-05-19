@@ -27,6 +27,14 @@ public class FundServiceImpl implements FundService {
   }
 
   @Override
+  public Fund getFund(Long fundId) {
+    FundEntity fundEntity = fundRepository.findById(fundId)
+        .orElseThrow(() -> new ResourceNotFoundException("Fund record does not exist with id: " + fundId));
+    Fund funds = new Fund(fundEntity.getFundId(), fundEntity.getFunds());
+    return funds;
+  }
+
+  @Override
   public List<Fund> getAllFunds() {
     List<FundEntity> fundEntities = fundRepository.findAll();
     List<Fund> funds = fundEntities

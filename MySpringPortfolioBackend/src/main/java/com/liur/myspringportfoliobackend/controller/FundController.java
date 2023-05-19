@@ -25,6 +25,11 @@ public class FundController {
     return fundService.createFund(fund);
   }
 
+  @GetMapping("/get-fund/{fundId}")
+  public Fund getFund(@PathVariable Long fundId) {
+    return fundService.getFund(fundId);
+  }
+
   // Get available funds
   @GetMapping("/funds")
   public List<Fund> getAllFunds() {
