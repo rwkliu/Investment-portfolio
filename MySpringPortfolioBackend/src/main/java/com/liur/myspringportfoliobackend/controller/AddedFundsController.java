@@ -15,7 +15,7 @@ public class AddedFundsController {
   }
 
   //Add added funds record
-  @PostMapping("/addFunds")
+  @PostMapping("/addedFunds")
   public AddedFunds createAddedFunds(@RequestBody AddedFunds addedFunds) {
     return addedFundsService.createAddedFunds(addedFunds);
   }

@@ -46,7 +46,7 @@ public class InvestmentController {
   }
 
   // Delete investments
-  @DeleteMapping("/delete-investments")
+  @DeleteMapping("/investments")
   public ResponseEntity<Map<String, Boolean>> deleteInvestments(@RequestBody IdList idList) {
     boolean deleted = investmentService.deleteInvestments(idList.getIdList());
     Map<String, Boolean> response = new HashMap<>();
