@@ -9,23 +9,24 @@ import AddInvestment from '../../components/add-investment'
 
 import { sortTitle, sortActions } from '../../data/sort-titles'
 import { actionTitle, actions } from '../../data/action-titles'
-import { exampleInvestments } from '../../data/example-investments'
 
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
+  const investments = await getInvestmentData();
 
   return {
     props: {
-      remainingFunds
+      remainingFunds,
+      investments
     }
   }
 }
 
 
-export default function Home({ remainingFunds }) {
+export default function Home({ remainingFunds, investments }) {
   return (
     <>
       <Head>
@@ -43,7 +44,7 @@ export default function Home({ remainingFunds }) {
           <Dropdown className="" title={actionTitle} items={actions} />
           <Dropdown title={sortTitle} items={sortActions} />
         </div>
-        <ListInvestments investments={exampleInvestments}/>
+        <ListInvestments investments={investments}/>
       </div>
       <Footer footerText={"Created by Ricky"}/>
     </>

@@ -15,12 +15,12 @@ export default function ListInvestments({ investments }) {
           {
             investments.map(
               investment =>
-              <tr key={investment.id}>
+              <tr key={investment.investmentId}>
                 <td><input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input></td>
-                <td>{investment.name}</td>
-                <td>{investment.type}</td>
-                <td>{investment.funds}</td>
-                <td>{investment.date}</td>
+                <td>{investment.investmentName}</td>
+                <td>{investment.investmentType}</td>
+                <td>{investment.fundsInvested}</td>
+                <td>{investment.dateInvested}</td>
               </tr>
             )
           }
