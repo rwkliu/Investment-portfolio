@@ -11,7 +11,21 @@ import { sortTitle, sortActions } from '../../data/sort-titles'
 import { actionTitle, actions } from '../../data/action-titles'
 import { exampleInvestments } from '../../data/example-investments'
 
-export default function Home() {
+import { getFundData } from '../../lib/fundData'
+import { getInvestmentData } from '../../lib/investmentData'
+
+export async function getServerSideProps() {
+  const remainingFunds = await getFundData(1);
+
+  return {
+    props: {
+      remainingFunds
+    }
+  }
+}
+
+
+export default function Home({ remainingFunds }) {
   return (
     <>
       <Head>
@@ -21,7 +35,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={4}/>
-      <FundsDisplay funds={10000000} currency={"USD"} />
+      <FundsDisplay funds={remainingFunds.funds} currency={"USD"} />
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
