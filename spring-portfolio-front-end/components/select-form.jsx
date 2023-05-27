@@ -1,7 +1,7 @@
 export default function SelectForm({ defaultSelect, items }) {
   return (
     <select className="form-select" aria-label="Default select example">
-      <option selected>{defaultSelect}</option>
+      <option>{defaultSelect}</option>
       {
         items.map(
           item =>
