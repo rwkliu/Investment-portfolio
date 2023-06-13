@@ -25,7 +25,6 @@ export async function getServerSideProps() {
   }
 }
 
-
 export default function Home({ remainingFunds, investments }) {
   return (
     <>
@@ -35,7 +34,7 @@ export default function Home({ remainingFunds, investments }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={4}/>
+      <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={0}/>
       <FundsDisplay funds={remainingFunds.funds} currency={"USD"} />
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
