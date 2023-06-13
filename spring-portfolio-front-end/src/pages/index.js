@@ -17,6 +17,12 @@ export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
   const investments = await getInvestmentData();
 
+  if (!remainingFunds || !investments) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       remainingFunds,
