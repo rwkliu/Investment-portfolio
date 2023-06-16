@@ -1,21 +1,4 @@
-import { useState } from 'react';
-
-export default function ListInvestments({ investments }) {
-  const [selectAll, setSelectAll] = useState(false);
-  const [checkboxes, setCheckboxes] = useState([]);
-
-  useState(() => {
-    const initialCheckboxes = investments.map((investment) => ({
-      id: investment.investmentId,
-      checked: false,
-      investmentName: investment.investmentName,
-      investmentType: investment.investmentType,
-      fundsInvested: investment.fundsInvested,
-      dateInvested: investment.dateInvested,
-    }));
-    setCheckboxes(initialCheckboxes);
-  }, [investments]);
-
+export default function ListInvestments({ selectAll, setSelectAll, checkboxes, setCheckboxes}) {
   const toggleAllCheckboxes = () => {
     const updatedCheckboxes = checkboxes.map((checkbox) => ({
       ...checkbox,

@@ -1,14 +1,15 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
 import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
 import Dropdown from '../../components/dropdown'
 import AddInvestment from '../../components/add-investment'
+import { useState } from 'react'
 
 import { sortTitle, sortActions } from '../../data/sort-titles'
 import { actionTitle, actions } from '../../data/action-titles'
+import initializeCheckboxes from '../../lib/initializeCheckboxes'
 
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
@@ -32,6 +33,9 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ remainingFunds, investments }) {
+  const [selectAll, setSelectAll] = useState(false);
+  const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments));
+
   return (
     <>
       <Head>
@@ -46,10 +50,10 @@ export default function Home({ remainingFunds, investments }) {
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
           <AddInvestment buttonClass="me-auto btn btn-primary"/>
-          <Dropdown className="" title={actionTitle} items={actions} />
-          <Dropdown title={sortTitle} items={sortActions} />
+          <Dropdown title={actionTitle} items={actions} checkboxes={checkboxes}/>
+          <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
-        <ListInvestments investments={investments}/>
+        <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
       </div>
       <Footer footerText={"Created by Ricky"}/>
     </>
