@@ -1,4 +1,4 @@
-export default function ListInvestments({ selectAll, setSelectAll, checkboxes, setCheckboxes}) {
+export default function ListInvestments({ selectAll, setSelectAll, checkboxes, setCheckboxes }) {
   const toggleAllCheckboxes = () => {
     const updatedCheckboxes = checkboxes.map((checkbox) => ({
       ...checkbox,
