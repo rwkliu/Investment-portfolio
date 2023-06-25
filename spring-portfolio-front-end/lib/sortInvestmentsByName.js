@@ -4,7 +4,7 @@ const sortActions = {
 };
 
 export default function sortInvestmentsByName(investments, order) {
-  for (let i = 0; i < investments.length; i++) {
+  for (let i = 1; i < investments.length; i++) {
     let temp = investments[i];
     let j = i - 1;
 

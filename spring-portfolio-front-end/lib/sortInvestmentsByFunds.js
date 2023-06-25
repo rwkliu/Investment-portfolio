@@ -4,11 +4,11 @@ const sortActions = {
 };
 
 export default function sortInvestmentsByFunds(investments, order) {
-  for (let i = 0; i < investments.length; i++) {
+  for (let i = 1; i < investments.length; i++) {
     let temp = investments[i];
     let j = i - 1;
 
-    while (j >= 0 && sortActions[order](temp.funds, investments[j].funds)) {    
+    while (j >= 0 && sortActions[order](temp.fundsInvested, investments[j].fundsInvested)) {  
       investments[j + 1] = investments[j];
       j--;
     }
