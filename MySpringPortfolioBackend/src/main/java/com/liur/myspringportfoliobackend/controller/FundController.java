@@ -14,6 +14,13 @@ public class FundController {
     this.fundService = fundService;
   }
 
+  // Add fund
+  @PostMapping("/funds")
+  public Fund createFund(@RequestBody Fund newFund) {
+    fundService.createFund(newFund);
+    return newFund;
+  }
+
   @GetMapping("/funds/{fundId}")
   public Fund getFund(@PathVariable Long fundId) {
     return fundService.getFund(fundId);
