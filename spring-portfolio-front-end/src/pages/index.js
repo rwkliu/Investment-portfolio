@@ -7,12 +7,14 @@ import Dropdown from '../../components/dropdown'
 import AddInvestment from '../../components/add-investment'
 import { useState } from 'react'
 
-import { sortTitle, sortActions } from '../../data/sort-titles'
-import { actionTitle, actions } from '../../data/action-titles'
+import { sortTitle, sortActions } from '../../data/sort-names-functions'
+import { actionTitle, actions, actionFunctions } from '../../data/action-names-functions'
 
 import initializeCheckboxes from '../../lib/initializeCheckboxes'
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
+import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
+import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -35,6 +37,12 @@ export async function getServerSideProps() {
 export default function Home({ remainingFunds, investments }) {
   const [selectAll, setSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments))
+  
+  const sortInvestments = (investments) => {
+    const sorted = sortInvestmentsByName(investments, 'ascending');
+    console.log(sorted);
+    setCheckboxes(initializeCheckboxes(sorted));
+  }
 
   return (
     <>
@@ -50,7 +58,8 @@ export default function Home({ remainingFunds, investments }) {
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
           <AddInvestment buttonClass="me-auto btn btn-primary"/>
-          <Dropdown title={actionTitle} items={actions} checkboxes={checkboxes}/>
+          <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
+          <Dropdown title={actionTitle} items={actions} checkboxes={checkboxes} functions={actionFunctions}/>
           <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
