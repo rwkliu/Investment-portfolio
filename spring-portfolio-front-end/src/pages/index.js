@@ -15,6 +15,7 @@ import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
 import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
+import ViewInvestments from '../../components/view-investments'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -59,7 +60,7 @@ export default function Home({ remainingFunds, investments }) {
         <div className="d-flex">
           <AddInvestment buttonClass="me-auto btn btn-primary"/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
-          <Dropdown title={actionTitle} items={actions} checkboxes={checkboxes} functions={actionFunctions}/>
+          <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
           <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>

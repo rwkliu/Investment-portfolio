@@ -1,3 +1,6 @@
+import deleteInvestments from "../lib/deleteInvestments";
+import viewInvestments from "../lib/viewInvestments";
+
 export const actionTitle = "Actions";
 export const actions = [{
   id: 0,
@@ -8,12 +11,9 @@ export const actions = [{
 }];
 export const actionFunctions = {
   "View": (investments) => {
-    console.log("View button was pressed");
-    console.log(investments);
+    viewInvestments(investments);
   },
   "Delete": (investments) => {
-    console.log("Delete button was pressed");
-    console.log("These will be deleted");
-    console.log(investments);
+    deleteInvestments(investments);
   },
 }
