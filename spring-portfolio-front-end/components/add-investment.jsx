@@ -1,8 +1,11 @@
 import SelectForm from "./select-form"
 import { investmentTypes, investmentTypesTitle } from "../data/investment-types"
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function AddInvestment({ buttonClass }) {
+  const router = useRouter();
+
   const [investmentName, setInvestmentName] = useState("");
   const [investmentType, setInvestmentType] = useState(investmentTypesTitle);
   const [fundsInvested, setFundsInvested] = useState("");
@@ -39,13 +42,33 @@ export default function AddInvestment({ buttonClass }) {
     console.log("After clearing fields: " + investmentName);
   }
 
+  const addInvestment = async(e) => {
+    e.preventDefault();
+    let investment = {
+      fundId: 1,
+      investmentName: investmentName,
+      investmentType: investmentType,
+      fundsInvested: fundsInvested,
+      dateInvested: dateInvested,
+      description: description
+    };
+    await fetch('http://localhost:8080/api/v1/investments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(investment),
+    });
+    resetFields();
+  }
+
   return (
     <>
       {/* Button trigger modal */}
-      <button type="button" className={buttonClass} data-bs-toggle="modal" data-bs-target="#addInvestmentModal" data-bs-whatever="addInvestment">Add Investment</button>
+      <button type="button" className={buttonClass} data-bs-toggle="modal"  data-bs-target="#addInvestmentModal" data-bs-whatever="addInvestment">Add Investment</button>
 
       {/* Modal */}
-      <div className="modal fade" id="addInvestmentModal" tabIndex="-1" aria-labelledby="addInvestmentModalLabel" aria-hidden="true" style={{color: "black"}}>
+      <div className="modal fade" id="addInvestmentModal" tabIndex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="addInvestmentModalLabel" aria-hidden="true" style={{color: "black"}}>
         <div className="modal-dialog modal-dialog-centered" id="addInvestment">
           <div className="modal-content">
             <div className="modal-header">
@@ -60,8 +83,7 @@ export default function AddInvestment({ buttonClass }) {
                 </div>
                 <div className="mb-2">
                   <label htmlFor="investment-type" className="col-form-label">Investment Type</label>
-                  {/* <SelectForm defaultSelect={investmentType} items={investmentTypes} value={investmentType} onChange={changeInvestmentTypeHandler}/> */}
-                  <select className="form-select" defaultValue={investmentTypesTitle} value={investmentType} onChange={changeInvestmentTypeHandler}>
+                  <select className="form-select" value={investmentType} onChange={changeInvestmentTypeHandler}>
                     <option value={investmentTypesTitle}>{investmentTypesTitle}</option>
                     {
                       investmentTypes.map(
@@ -87,7 +109,7 @@ export default function AddInvestment({ buttonClass }) {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetFields}>Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={addInvestment}>Save changes</button>
             </div>
           </div>
         </div>
