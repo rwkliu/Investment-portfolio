@@ -16,6 +16,8 @@ import { getInvestmentData } from '../../lib/investmentData'
 import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
 import ViewInvestments from '../../components/view-investments'
+import { useEffect } from 'react'
+import DeleteInvestments from '../../components/delete-investments'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -61,6 +63,7 @@ export default function Home({ remainingFunds, investments }) {
           <AddInvestment buttonClass="me-auto btn btn-primary"/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
           <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
+          <DeleteInvestments checkboxes={checkboxes}></DeleteInvestments>
           <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
