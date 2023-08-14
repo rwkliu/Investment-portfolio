@@ -1,9 +1,8 @@
-import SelectForm from "./select-form"
 import { investmentTypes, investmentTypesTitle } from "../data/investment-types"
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function AddInvestment({ buttonClass }) {
+export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxes }) {
   const router = useRouter();
 
   const [investmentName, setInvestmentName] = useState("");
@@ -14,7 +13,6 @@ export default function AddInvestment({ buttonClass }) {
 
   const changeInvestmentNameHandler =  (event) => {
     setInvestmentName(event.target.value);
-    console.log(investmentName);
   }
 
   const changeInvestmentTypeHandler = (event) => {
@@ -39,7 +37,6 @@ export default function AddInvestment({ buttonClass }) {
     setFundsInvested("");
     setDateInvested("");
     setDescription("");
-    console.log("After clearing fields: " + investmentName);
   }
 
   const addInvestment = async(e) => {
@@ -59,6 +56,17 @@ export default function AddInvestment({ buttonClass }) {
       },
       body: JSON.stringify(investment),
     });
+    const newInvestmentCheckbox = {
+      id: (checkboxes[checkboxes.length - 1].id + 1),
+      checked: false,
+      investmentName: investmentName,
+      investmentType: investmentType,
+      fundsInvested: fundsInvested,
+      dateInvested: dateInvested,
+    };
+    checkboxes.push(newInvestmentCheckbox);
+    updateCheckboxes(checkboxes);
+    router.push("/");
     resetFields();
   }
 

@@ -16,7 +16,6 @@ import { getInvestmentData } from '../../lib/investmentData'
 import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
 import ViewInvestments from '../../components/view-investments'
-import { useEffect } from 'react'
 import DeleteInvestments from '../../components/delete-investments'
 
 export async function getServerSideProps() {
@@ -40,6 +39,10 @@ export async function getServerSideProps() {
 export default function Home({ remainingFunds, investments }) {
   const [selectAll, setSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments))
+
+  const updateCheckboxesHandler = (newCheckboxes) => {
+    setCheckboxes(newCheckboxes);
+  }
   
   const sortInvestments = (investments) => {
     const sorted = sortInvestmentsByName(investments, 'ascending');
@@ -60,10 +63,10 @@ export default function Home({ remainingFunds, investments }) {
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
-          <AddInvestment buttonClass="me-auto btn btn-primary"/>
+          <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
           <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
-          <DeleteInvestments checkboxes={checkboxes}></DeleteInvestments>
+          <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}></DeleteInvestments>
           <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
