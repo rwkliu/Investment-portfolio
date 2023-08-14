@@ -4,7 +4,7 @@ import com.liur.myspringportfoliobackend.model.AddedFunds;
 import com.liur.myspringportfoliobackend.service.AddedFundsService;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(originPatterns = "http://localhost:8080")
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
 public class AddedFundsController {
