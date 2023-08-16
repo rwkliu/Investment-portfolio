@@ -38,12 +38,18 @@ export async function getServerSideProps() {
 
 export default function Home({ remainingFunds, investments }) {
   const [selectAll, setSelectAll] = useState(false);
-  const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments))
+  const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments));
+  const [currentFunds, setCurrentFunds] = useState(remainingFunds.funds);
 
   const updateCheckboxesHandler = (newCheckboxes) => {
     setCheckboxes(newCheckboxes);
   }
-  
+
+  const updateCurrentFundsHandler = (updatedCurrentFunds) => {
+    const newAvailableFunds = parseInt(currentFunds) + parseInt(updatedCurrentFunds);
+    setCurrentFunds(newAvailableFunds);
+  }
+
   const sortInvestments = (investments) => {
     const sorted = sortInvestmentsByName(investments, 'ascending');
     console.log(sorted);
@@ -59,7 +65,7 @@ export default function Home({ remainingFunds, investments }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar brandName={"My Spring Portfolio"} notificationName={"Notifications"} numAlerts={0}/>
-      <FundsDisplay funds={remainingFunds.funds} currency={"USD"} />
+      <FundsDisplay funds={currentFunds} currency={"USD"} updateFunds={updateCurrentFundsHandler}/>
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">

@@ -1,6 +1,7 @@
 import AddFunds from "./add-funds"
 
-export default function FundsDisplay({ funds, currency }) {
+export default function FundsDisplay({ funds, currency, updateFunds }) {
+
   return (
     <div className="container text-center mb-5">
       <button type="button" className="btn btn-link" disabled style={{visibility: "hidden"}}>Add funds</button>
@@ -12,7 +13,7 @@ export default function FundsDisplay({ funds, currency }) {
           <div className="badge bg-secondary" style={{paddingLeft: "5px", paddingRight: "5px"}}>{currency}</div>
         </div>
       </div>
-      <AddFunds />
+      <AddFunds updateFunds={updateFunds}/>
     </div>
   )
 }
