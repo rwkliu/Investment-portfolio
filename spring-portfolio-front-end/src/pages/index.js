@@ -69,7 +69,7 @@ export default function Home({ remainingFunds, investments }) {
       <div className="container text-center">
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
-          <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}/>
+          <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
           <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
           <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}></DeleteInvestments>

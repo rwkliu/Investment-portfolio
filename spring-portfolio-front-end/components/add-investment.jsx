@@ -2,7 +2,7 @@ import { investmentTypes, investmentTypesTitle } from "../data/investment-types"
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxes }) {
+export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxes, updateFunds }) {
   const router = useRouter();
 
   const [investmentName, setInvestmentName] = useState("");
@@ -66,6 +66,7 @@ export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxe
     };
     checkboxes.push(newInvestmentCheckbox);
     updateCheckboxes(checkboxes);
+    updateFunds((-1) * fundsInvested);
     router.push("/");
     resetFields();
   }
