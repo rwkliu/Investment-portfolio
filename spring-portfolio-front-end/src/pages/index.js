@@ -17,7 +17,6 @@ import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
 import ViewInvestments from '../../components/view-investments'
 import DeleteInvestments from '../../components/delete-investments'
-import SelectedInvestments from './view-selected-investments/[selectedIds]'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
