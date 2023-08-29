@@ -1,9 +1,9 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Footer from '../../components/footer-component'
 import Navbar from '../../components/navbar'
 import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
-import Dropdown from '../../components/dropdown'
 import AddInvestment from '../../components/add-investment'
 import { useState } from 'react'
 
@@ -17,6 +17,7 @@ import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
 import ViewInvestments from '../../components/view-investments'
 import DeleteInvestments from '../../components/delete-investments'
+import SelectedInvestments from './view-selected-investments/[selectedIds]'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -56,6 +57,10 @@ export default function Home({ remainingFunds, investments }) {
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
+  const noBoxesChecked = checkboxes.every((checkbox) => checkbox.checked == false);
+  const selectedInvestments = checkboxes.filter((checkbox) => checkbox.checked == true);
+  const selectedIds = selectedInvestments.map((selected) => selected.id);
+
   return (
     <>
       <Head>
@@ -72,8 +77,10 @@ export default function Home({ remainingFunds, investments }) {
           <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
           <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
+          <Link href={`/view-selected-investments/${selectedIds}`}>
+            <button className="button" disabled={noBoxesChecked}>View</button>
+          </Link>
           <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}></DeleteInvestments>
-          <Dropdown title={sortTitle} items={sortActions} checkboxes={[{checked: true}]}/>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
       </div>
