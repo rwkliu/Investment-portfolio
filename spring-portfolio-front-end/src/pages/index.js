@@ -76,11 +76,11 @@ export default function Home({ remainingFunds, investments }) {
           <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
           <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
-            <button type="button" className="btn btn-primary" disabled={noBoxesChecked}>
-              <Link href={`/view-selected-investments/${selectedIds}`}>
-                View
-              </Link>
-            </button>
+          <button type="button" className="btn btn-primary" disabled={noBoxesChecked}>
+            <Link href={`/view-selected-investments/${selectedIds}`}>
+              View
+            </Link>
+          </button>
           <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}></DeleteInvestments>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
