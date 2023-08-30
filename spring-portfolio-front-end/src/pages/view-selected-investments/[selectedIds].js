@@ -21,13 +21,10 @@ export async function getServerSideProps() {
 export default function SelectedInvestments({ investments }) {
   const router = useRouter();
   const { selectedIds } = router.query;
-  let selected = [];
-
-  if (selectedIds) {
-    selected = selectedIds.split(","); 
-  } 
-
-  const selectedInvestments = investments.filter((investment) => selectedIds.includes(investment.investmentId));
+  const splitIds= selectedIds.split(",");
+  const selected = splitIds.map((select) => parseInt(select));
+  console.log(selected);
+  const selectedInvestments = investments.filter((investment) => selected.includes(investment.investmentId));
   console.log(selectedInvestments);
 
   return (
@@ -37,19 +34,16 @@ export default function SelectedInvestments({ investments }) {
       <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white link-dark" style={{width: "380px"}}>
         <span className="fs-5 fw-semibold">
           <center>
-            List Group
+            Selected Investments List
           </center>
         </span>
         <div className="list-group list-group-flush border-bottom scrollarea">
-          <div className="d-flex w-100 align-items-center justify-content-between">
-            <strong className="mb-1">List group item heading</strong>
-          </div>
         </div>
         {
-          selected.map(
-            selectedId =>
-            <div className="d-flex w-100 align-items-center justify-content-between" key={selectedId}>
-              <strong className="mb-1">{selectedId}</strong>
+          selectedInvestments.map(
+            selectedInvestment =>
+            <div className="d-flex w-100 align-items-center justify-content-center" key={selectedInvestment.investmentId}>
+              <strong className="mb-1">{selectedInvestment.investmentName}</strong>
             </div>
           )
         }
