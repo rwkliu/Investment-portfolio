@@ -23,9 +23,7 @@ export default function SelectedInvestments({ investments }) {
   const { selectedIds } = router.query;
   const splitIds= selectedIds.split(",");
   const selected = splitIds.map((select) => parseInt(select));
-  console.log(selected);
   const selectedInvestments = investments.filter((investment) => selected.includes(investment.investmentId));
-  console.log(selectedInvestments);
 
   return (
     <>

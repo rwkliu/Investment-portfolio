@@ -15,7 +15,6 @@ import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
 import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
-import ViewInvestments from '../../components/view-investments'
 import DeleteInvestments from '../../components/delete-investments'
 
 export async function getServerSideProps() {
@@ -75,7 +74,6 @@ export default function Home({ remainingFunds, investments }) {
         <div className="d-flex">
           <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}/>
           <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
-          <ViewInvestments checkboxes={checkboxes}></ViewInvestments>
           <button type="button" className="btn btn-primary" disabled={noBoxesChecked}>
             <Link href={`/view-selected-investments/${selectedIds}`}>
               View
