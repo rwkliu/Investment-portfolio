@@ -30,7 +30,6 @@ export default function SelectedInvestments({ investments }) {
 
   const handleItemClick = (index) => {
     setCurrentPage(selectedInvestments.find((investment) => investment.investmentId === index));
-    console.log(currentPage);
   };
 
   return (
@@ -49,7 +48,7 @@ export default function SelectedInvestments({ investments }) {
             selectedInvestments.map(
               selectedInvestment =>
               <div className="d-flex w-100 align-items-center justify-content-center" key={selectedInvestment.investmentId} onClick={() => handleItemClick(selectedInvestment.investmentId)}>
-                <a className="mb-1">{selectedInvestment.investmentName}</a>
+                <label className="mb-1">{selectedInvestment.investmentName}</label>
               </div>
             )
           }

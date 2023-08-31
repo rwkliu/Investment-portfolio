@@ -1,7 +1,7 @@
 export const investmentTypesTitle = "Select investment type";
 export const investmentTypes = [{
   id: 0,
-  name: "stocks"
+  name: "Stocks"
 }, {
   id: 1,
   name: "Bonds"
