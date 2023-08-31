@@ -1,0 +1,91 @@
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import { investmentTypes, investmentTypesTitle } from "../../../data/investment-types";
+
+export default function UpdateInvestment() {
+  const router = useRouter();
+  const { investmentId } = router.query;
+
+  const [investmentName, setInvestmentName] = useState("");
+  const [investmentType, setInvestmentType] = useState(investmentTypesTitle);
+  const [fundsInvested, setFundsInvested] = useState("");
+  const [dateInvested, setDateInvested] = useState("");
+  const [description, setDescription] = useState("");
+
+  const getInvestmentById = async(investmentId) => {
+    const res = await fetch('http://localhost:8080/api/v1/investments/' + investmentId);
+    const data = await res.json();
+    setInvestmentName(data.investmentName);
+    setInvestmentType(data.investmentType);
+    setFundsInvested(data.fundsInvested);
+    setDateInvested(data.dateInvested);
+    setDescription(data.description);
+  }
+
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    getInvestmentById(investmentId);
+  }, [router.isReady]);
+
+  const changeInvestmentNameHandler =  (event) => {
+    setInvestmentName(event.target.value);
+  }
+
+  const changeInvestmentTypeHandler = (event) => {
+    setInvestmentType(event.target.value);
+  }
+
+  const changeFundsInvestedHandler = (event) => {
+    setFundsInvested(event.target.value);
+  }
+
+  const changeDateInvestedHandler = (event) => {
+    setDateInvested(event.target.value);
+  }
+
+  const changeDescriptionHandler = (event) => {
+    setDescription(event.target.value);
+  }
+
+  return (
+      <div className="text-center">
+        <h1 className="text-center">Update Investment</h1>
+        <div className="card col-md-3 offset-mid-3" style={{margin: "auto"}}>
+          <div className="card-body">
+            <form>
+              <div className="form-group">
+                <label>Investment Name</label>
+                <input name="Investment Name" className="form-control" defaultValue={investmentName} onChange={changeInvestmentNameHandler}/>
+              </div>
+              <div className="form-group">
+                <label>Investment Type</label>
+                <select className="form-select" value={investmentType} onChange={changeInvestmentTypeHandler}>
+                  <option value={investmentTypesTitle}>{investmentTypesTitle}</option>
+                  {
+                    investmentTypes.map(
+                      investmentType => 
+                        <option key={investmentType.id} value={investmentType.name}>{investmentType.name}</option>
+                    )
+                  }
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Funds Invested</label>
+                <input name="Funds Invested" className="form-control" defaultValue={fundsInvested} onChange={changeFundsInvestedHandler}/>
+              </div>
+              <div className="form-group">
+                <label>Date Invested</label>
+                <input name="Date Invested" className="form-control" defaultValue={dateInvested} onChange={changeDateInvestedHandler}/>
+              </div>
+              <div className="form-group">
+                <label>Description</label>
+                <input name="Description" className="form-control" defaultValue={description} onChange={changeDescriptionHandler}/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  );
+}
