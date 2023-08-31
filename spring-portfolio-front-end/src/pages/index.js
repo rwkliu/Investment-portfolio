@@ -5,17 +5,13 @@ import Navbar from '../../components/navbar'
 import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
 import AddInvestment from '../../components/add-investment'
+import DeleteInvestments from '../../components/delete-investments'
 import { useState } from 'react'
-
-import { sortTitle, sortActions } from '../../data/sort-names-functions'
-import { actionTitle, actions, actionFunctions } from '../../data/action-names-functions'
-
 import initializeCheckboxes from '../../lib/initializeCheckboxes'
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
 import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
 import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
-import DeleteInvestments from '../../components/delete-investments'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -39,6 +35,9 @@ export default function Home({ remainingFunds, investments }) {
   const [selectAll, setSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments));
   const [currentFunds, setCurrentFunds] = useState(remainingFunds.funds);
+  const noBoxesChecked = checkboxes.every((checkbox) => checkbox.checked == false);
+  const selectedInvestments = checkboxes.filter((checkbox) => checkbox.checked == true);
+  const selectedIds = selectedInvestments.map((selected) => selected.id);
 
   const updateCheckboxesHandler = (newCheckboxes) => {
     setCheckboxes(newCheckboxes);
@@ -49,15 +48,25 @@ export default function Home({ remainingFunds, investments }) {
     setCurrentFunds(newAvailableFunds);
   }
 
-  const sortInvestments = (investments) => {
+  const sortNameAscending = (investments) => {
     const sorted = sortInvestmentsByName(investments, 'ascending');
-    console.log(sorted);
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
-  const noBoxesChecked = checkboxes.every((checkbox) => checkbox.checked == false);
-  const selectedInvestments = checkboxes.filter((checkbox) => checkbox.checked == true);
-  const selectedIds = selectedInvestments.map((selected) => selected.id);
+  const sortNameDescending = (investments) => {
+    const sorted = sortInvestmentsByName(investments, 'descending');
+    setCheckboxes(initializeCheckboxes(sorted));
+  }
+
+  const sortFundsAscending = (investments) => {
+    const sorted = sortInvestmentsByFunds(investments, 'ascending');
+    setCheckboxes(initializeCheckboxes(sorted));
+  }
+
+  const sortFundsDescending = (investments) => {
+    const sorted = sortInvestmentsByFunds(investments, 'descending');
+    setCheckboxes(initializeCheckboxes(sorted));
+  }
 
   return (
     <>
@@ -73,7 +82,10 @@ export default function Home({ remainingFunds, investments }) {
         <div className="badge bg-dark fs-1">Investments</div>
         <div className="d-flex">
           <AddInvestment buttonClass="me-auto btn btn-primary" checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}/>
-          <button className="button" onClick={() => {sortInvestments(investments)}}>Sort</button>
+          <button className="btn btn-light" onClick={() => {sortNameAscending(investments)}}>Sort Names (Ascending)</button>
+          <button className="btn btn-light" onClick={() => {sortNameDescending(investments)}}>Sort Names (Descending)</button>
+          <button className="btn btn-light" onClick={() => {sortFundsAscending(investments)}}>Sort Funds (Ascending)</button>
+          <button className="btn btn-light" onClick={() => {sortFundsDescending(investments)}}>Sort Funds (Descending)</button>
           <button type="button" className="btn btn-primary" disabled={noBoxesChecked}>
             <Link href={`/view-selected-investments/${selectedIds}`}>
               View
