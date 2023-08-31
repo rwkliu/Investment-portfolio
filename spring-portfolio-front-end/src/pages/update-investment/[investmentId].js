@@ -49,6 +49,25 @@ export default function UpdateInvestment() {
     setDescription(event.target.value);
   }
 
+  const updateInvestment = async(e) => {
+    e.preventDefault();
+    let investment = {
+      fundId: 1,
+      investmentName: investmentName,
+      investmentType: investmentType,
+      fundsInvested: fundsInvested,
+      dateInvested: dateInvested,
+      description: description
+    };
+    await fetch('http://localhost:8080/api/v1/investments/' + investmentId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(investment),
+    });
+  }
+
   return (
       <div className="text-center">
         <h1 className="text-center">Update Investment</h1>
@@ -81,8 +100,10 @@ export default function UpdateInvestment() {
               </div>
               <div className="form-group">
                 <label>Description</label>
-                <input name="Description" className="form-control" defaultValue={description} onChange={changeDescriptionHandler}/>
+                <textarea name="Description" className="form-control" rows="3" defaultValue={description} onChange={changeDescriptionHandler}/>
               </div>
+              <button className="btn btn-success" onClick={updateInvestment}>Save</button>
+              <button className="btn btn-secondary" style={{marginLeft: "10px"}}>Cancel</button>
             </form>
           </div>
         </div>
