@@ -10,8 +10,10 @@ import { useState } from 'react'
 import initializeCheckboxes from '../../lib/initializeCheckboxes'
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
-import sortInvestmentsByFunds from '../../lib/sortInvestmentsByFunds'
-import sortInvestmentsByName from '../../lib/sortInvestmentsByName'
+import compareNamesAscending from '../../lib/compareNameAscending'
+import compareNamesDescending from '../../lib/compareNameDescending'
+import compareFundsAscending from '../../lib/compareFundsAscending'
+import compareFundsDescending from '../../lib/compareFundsDescending'
 
 export async function getServerSideProps() {
   const remainingFunds = await getFundData(1);
@@ -49,22 +51,22 @@ export default function Home({ remainingFunds, investments }) {
   }
 
   const sortNameAscending = (investments) => {
-    const sorted = sortInvestmentsByName(investments, 'ascending');
+    const sorted = investments.sort(compareNamesAscending);
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
   const sortNameDescending = (investments) => {
-    const sorted = sortInvestmentsByName(investments, 'descending');
+    const sorted = investments.sort(compareNamesDescending);
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
   const sortFundsAscending = (investments) => {
-    const sorted = sortInvestmentsByFunds(investments, 'ascending');
+    const sorted = investments.sort(compareFundsAscending);
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
   const sortFundsDescending = (investments) => {
-    const sorted = sortInvestmentsByFunds(investments, 'descending');
+    const sorted = investments.sort(compareFundsDescending);
     setCheckboxes(initializeCheckboxes(sorted));
   }
 
