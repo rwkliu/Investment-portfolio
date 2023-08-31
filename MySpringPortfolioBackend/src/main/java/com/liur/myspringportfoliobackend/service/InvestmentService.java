@@ -7,6 +7,7 @@ import java.util.List;
 public interface InvestmentService {
   Investment createInvestment(Investment investment);
 
+  Investment getInvestmentById(Long investmentId);
   List<Investment> getAllInvestments();
 
   Investment updateInvestment(Long investmentId, Investment investment);

@@ -46,6 +46,16 @@ public class InvestmentServiceImpl implements InvestmentService {
   }
 
   @Override
+  public Investment getInvestmentById(Long investmentId) {
+    InvestmentEntity investmentEntity = investmentRepository.findById(investmentId)
+        .orElseThrow(() -> new ResourceNotFoundException("Investment record does not exist with this id: " + investmentId));
+    Investment investment = new Investment();
+
+    BeanUtils.copyProperties(investmentEntity, investment);
+    return investment;
+  }
+
+  @Override
   public Investment updateInvestment(Long investmentId, Investment investment) {
     InvestmentEntity investmentEntity = investmentRepository.findById(investmentId)
         .orElseThrow(() -> new ResourceNotFoundException("Investment record does not exist with this id: " + investmentId));

@@ -34,6 +34,13 @@ public class InvestmentController {
     return investmentService.getAllInvestments();
   }
 
+  // Get one investment by id
+  @GetMapping("/investments/{id}")
+  public ResponseEntity<Investment> getInvestmentById(@PathVariable Long id) {
+    Investment investment = investmentService.getInvestmentById(id);
+    return ResponseEntity.ok(investment);
+  }
+
   // Update investment
   @RequestMapping(
     value = "/investments/{investmentId}",
