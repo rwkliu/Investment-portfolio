@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Footer from "../../../components/footer-component";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { getInvestmentData } from "../../../lib/investmentData";
 
 export async function getServerSideProps() {
@@ -24,28 +26,64 @@ export default function SelectedInvestments({ investments }) {
   const splitIds= selectedIds.split(",");
   const selected = splitIds.map((select) => parseInt(select));
   const selectedInvestments = investments.filter((investment) => selected.includes(investment.investmentId));
+  const [currentPage, setCurrentPage] = useState(null);
+
+  const handleItemClick = (index) => {
+    setCurrentPage(selectedInvestments.find((investment) => investment.investmentId === index));
+    console.log(currentPage);
+  };
 
   return (
     <>
       <h1>Selected Investments</h1>
-      <div>Selected Ids: {selectedIds}</div>
-      <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white link-dark" style={{width: "380px"}}>
-        <span className="fs-5 fw-semibold">
-          <center>
-            Selected Investments List
-          </center>
-        </span>
-        <div className="list-group list-group-flush border-bottom scrollarea">
+      <div className="d-flex">
+        <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white link-dark" style={{width: "380px"}}>
+          <span className="fs-5 fw-semibold">
+            <center>
+              Selected Investments List
+            </center>
+          </span>
+          <div className="list-group list-group-flush border-bottom scrollarea">
+          </div>
+          {
+            selectedInvestments.map(
+              selectedInvestment =>
+              <div className="d-flex w-100 align-items-center justify-content-center" key={selectedInvestment.investmentId} onClick={() => handleItemClick(selectedInvestment.investmentId)}>
+                <a className="mb-1">{selectedInvestment.investmentName}</a>
+              </div>
+            )
+          }
         </div>
         {
-          selectedInvestments.map(
-            selectedInvestment =>
-            <div className="d-flex w-100 align-items-center justify-content-center" key={selectedInvestment.investmentId}>
-              <strong className="mb-1">{selectedInvestment.investmentName}</strong>
+          currentPage !== null ? (
+            <div className="flex-column align-items-stretch flex-shrink-0 bg-white link-dark" style={{width: "380px"}}>
+              <div className="">
+                <div className="row">
+                  <label>Investment Name: {currentPage.investmentName}</label>
+                </div>
+                <div className="row">
+                  <label>Investment Type: {currentPage.investmentType}</label>
+                </div>
+                <div className="row">
+                  <label>Funds Invested: ${currentPage.fundsInvested}</label>
+                </div>
+                <div className="row">
+                  <label>Date Invested: {currentPage.dateInvested}</label>
+                </div>
+                <div className="row">
+                  <label>Description: {currentPage.description}</label>
+                </div>
+              </div>
+              <Link href={`/update-investment/${currentPage.investmentId}`}>
+                <button className="btn btn-info">Update</button>
+              </Link>
             </div>
+          ) : (
+            <p>Select an investment from the sidebar list to view its details</p>
           )
         }
       </div>
+      <Footer footerText={"Created by Ricky"}/>
     </>
   );
 }
