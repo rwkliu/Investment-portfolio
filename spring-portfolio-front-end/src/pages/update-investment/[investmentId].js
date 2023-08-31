@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { investmentTypes, investmentTypesTitle } from "../../../data/investment-types";
@@ -66,6 +67,7 @@ export default function UpdateInvestment() {
       },
       body: JSON.stringify(investment),
     });
+    router.back();
   }
 
   return (
@@ -103,7 +105,9 @@ export default function UpdateInvestment() {
                 <textarea name="Description" className="form-control" rows="3" defaultValue={description} onChange={changeDescriptionHandler}/>
               </div>
               <button className="btn btn-success" onClick={updateInvestment}>Save</button>
-              <button className="btn btn-secondary" style={{marginLeft: "10px"}}>Cancel</button>
+              <Link href="/">
+                <button className="btn btn-secondary" style={{marginLeft: "10px"}}>Cancel</button>
+              </Link>
             </form>
           </div>
         </div>
