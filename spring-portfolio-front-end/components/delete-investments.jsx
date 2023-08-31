@@ -22,8 +22,8 @@ export default function DeleteInvestments({ checkboxes, updateCheckboxes }) {
   }
 
   return (
-    <button type="button" className="button" disabled={buttonDisabled} onClick={deleteInvestments}>
-      Delete Investments
+    <button type="button" className="btn btn-danger" disabled={buttonDisabled} onClick={deleteInvestments}>
+      Delete
     </button>
   )
 }
