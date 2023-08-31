@@ -82,6 +82,9 @@ export default function SelectedInvestments({ investments }) {
           )
         }
       </div>
+      <Link href={"/"}>
+        <button className="btn btn-info">Home</button>
+      </Link>
       <Footer footerText={"Created by Ricky"}/>
     </>
   );
