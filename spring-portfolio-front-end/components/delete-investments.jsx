@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { hostAddress } from "../data/hostAddress";
 
 export default function DeleteInvestments({ checkboxes, updateCheckboxes }) {
   const router = useRouter();
@@ -10,7 +11,7 @@ export default function DeleteInvestments({ checkboxes, updateCheckboxes }) {
     const investmentsToDelete = {idList: selectedIds};
     const updatedCheckboxes = checkboxes.filter((checkbox) => checkbox.checked == false);
 
-    await fetch('http://localhost:8080/api/v1/investments', {
+    await fetch("http://" + hostAddress + ":8080/api/v1/investments", {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

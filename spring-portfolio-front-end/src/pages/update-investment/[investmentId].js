@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { investmentTypes, investmentTypesTitle } from "../../../data/investment-types";
+import { hostAddress } from "../../../data/hostAddress";
 
 export default function UpdateInvestment() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function UpdateInvestment() {
   const [description, setDescription] = useState("");
 
   const getInvestmentById = async(investmentId) => {
-    const res = await fetch('http://localhost:8080/api/v1/investments/' + investmentId);
+    const res = await fetch("http://" + hostAddress + ":8080/api/v1/investments/" + investmentId);
     const data = await res.json();
     setInvestmentName(data.investmentName);
     setInvestmentType(data.investmentType);
@@ -60,7 +61,7 @@ export default function UpdateInvestment() {
       dateInvested: dateInvested,
       description: description
     };
-    await fetch('http://localhost:8080/api/v1/investments/' + investmentId, {
+    await fetch("http://" + hostAddress + ":8080/api/v1/investments/" + investmentId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

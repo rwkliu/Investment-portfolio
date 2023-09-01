@@ -1,6 +1,7 @@
 import { investmentTypes, investmentTypesTitle } from "../data/investment-types"
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { hostAddress } from "../data/hostAddress";
 
 export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxes, updateFunds }) {
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxe
       dateInvested: dateInvested,
       description: description
     };
-    await fetch('http://localhost:8080/api/v1/investments', {
+    await fetch("http://" + hostAddress + ":8080/api/v1/investments", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
