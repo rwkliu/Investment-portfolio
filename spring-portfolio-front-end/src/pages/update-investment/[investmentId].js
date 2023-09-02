@@ -6,7 +6,6 @@ import { investmentTypes, investmentTypesTitle } from "../../../data/investment-
 export default function UpdateInvestment() {
   const router = useRouter();
   const { investmentId } = router.query;
-  const hostAddress = "52.53.234.189";
 
   const [investmentName, setInvestmentName] = useState("");
   const [investmentType, setInvestmentType] = useState(investmentTypesTitle);
@@ -15,8 +14,7 @@ export default function UpdateInvestment() {
   const [description, setDescription] = useState("");
 
   const getInvestmentById = async(investmentId) => {
-    const fetchAddress = process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL + investmentId;
-    const res = await fetch(fetchAddress);
+    const res = await fetch(process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL + "/" + investmentId);
     const data = await res.json();
     setInvestmentName(data.investmentName);
     setInvestmentType(data.investmentType);
@@ -29,7 +27,6 @@ export default function UpdateInvestment() {
     if (!router.isReady) {
       return;
     }
-    console.log(investmentId);
     getInvestmentById(investmentId);
   }, [router.isReady]);
 
@@ -63,7 +60,7 @@ export default function UpdateInvestment() {
       dateInvested: dateInvested,
       description: description
     };
-    await fetch(process.env.INVESTMENT_BASE_URL + "/" + investmentId, {
+    await fetch(process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL + "/" + investmentId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

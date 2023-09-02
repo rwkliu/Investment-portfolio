@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { hostAddress } from "../data/hostAddress";
 
 export default function AddFunds({ updateFunds }) {
   const router = useRouter();
@@ -20,7 +19,7 @@ export default function AddFunds({ updateFunds }) {
       fundId: 1,
       addFundAmount: fundsToAdd,
     }
-    await fetch("http://" + hostAddress + ":8080/api/v1/addedFunds", {
+    await fetch(process.env.NEXT_PUBLIC_ADDED_FUNDS_BASE_URL , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ export default function AddInvestment({ buttonClass, checkboxes, updateCheckboxe
       dateInvested: dateInvested,
       description: description
     };
-    await fetch(process.env.INVESTMENT_BASE_URL, {
+    await fetch(process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
