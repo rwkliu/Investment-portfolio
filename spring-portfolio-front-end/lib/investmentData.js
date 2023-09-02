@@ -1,8 +1,6 @@
-import { hostAddress } from "../data/hostAddress";
-
 export async function getInvestmentData() {
   try {
-    const res = await fetch("http://" + hostAddress + ":8080/api/v1/investments");
+    const res = await fetch(process.env.INVESTMENT_BASE_URL);
     return res.json();
   }
   catch {
