@@ -93,7 +93,7 @@ export default function Home({ remainingFunds, investments }) {
               View
             </Link>
           </button>
-          <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler}></DeleteInvestments>
+          <DeleteInvestments checkboxes={checkboxes} updateCheckboxes={updateCheckboxesHandler} updateFunds={updateCurrentFundsHandler}></DeleteInvestments>
         </div>
         <ListInvestments selectAll={selectAll} setSelectAll={setSelectAll} checkboxes={checkboxes} setCheckboxes={setCheckboxes}/>
       </div>
