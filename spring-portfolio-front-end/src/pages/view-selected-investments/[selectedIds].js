@@ -1,32 +1,29 @@
 import Link from "next/link";
 import Footer from "../../../components/footer-component";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getInvestmentData } from "../../../lib/investmentData";
 
-export async function getServerSideProps() {
-  const investments = await getInvestmentData();
-
-  if (!investments) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      investments
-    }
-  }
+export async function getInvestments() {
+  const res = await fetch(process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL);
+  const investments = await res.json();
+  return investments; 
 }
 
-export default function SelectedInvestments({ investments }) {
+export default function SelectedInvestments() {
+  const [investments, setInvestments] = useState([]);
   const router = useRouter();
   const { selectedIds } = router.query;
   const splitIds= selectedIds.split(",");
   const selected = splitIds.map((select) => parseInt(select));
   const selectedInvestments = investments.filter((investment) => selected.includes(investment.investmentId));
   const [currentPage, setCurrentPage] = useState(null);
+
+  useEffect(() => {
+    getInvestments().then((data) => {
+      setInvestments(data);
+    });
+  }, []);
 
   const handleItemClick = (index) => {
     setCurrentPage(selectedInvestments.find((investment) => investment.investmentId === index));

@@ -6,7 +6,7 @@ import ListInvestments from '../../components/list-investments'
 import FundsDisplay from '../../components/funds-display'
 import AddInvestment from '../../components/add-investment'
 import DeleteInvestments from '../../components/delete-investments'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import initializeCheckboxes from '../../lib/initializeCheckboxes'
 import { getFundData } from '../../lib/fundData'
 import { getInvestmentData } from '../../lib/investmentData'
@@ -15,28 +15,33 @@ import compareNamesDescending from '../../lib/compareNameDescending'
 import compareFundsAscending from '../../lib/compareFundsAscending'
 import compareFundsDescending from '../../lib/compareFundsDescending'
 
-export async function getServerSideProps() {
-  const remainingFunds = await getFundData(1);
-  const investments = await getInvestmentData();
-
-  if (!remainingFunds || !investments) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      remainingFunds,
-      investments
-    }
-  }
+export async function getInvestments() {
+  const res = await fetch(process.env.NEXT_PUBLIC_INVESTMENT_BASE_URL);
+  const investments = await res.json();
+  return investments; 
 }
 
-export default function Home({ remainingFunds, investments }) {
+export async function getRemainingFunds() {
+  const res = await fetch(process.env.NEXT_PUBLIC_FUNDS_BASE_URL + "/" + 1);
+  const remainingFunds = await res.json();
+  return remainingFunds;
+}
+
+export default function Home() {
+  const [investments, setInvestments] = useState([]);
+  const [checkboxes, setCheckboxes] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [checkboxes, setCheckboxes] = useState(initializeCheckboxes(investments));
-  const [currentFunds, setCurrentFunds] = useState(remainingFunds.funds);
+  const [currentFunds, setCurrentFunds] = useState([]);
+  useEffect(() => {
+    getInvestments().then((data) =>  {
+        setInvestments(data);
+        setCheckboxes(initializeCheckboxes(data));
+      }
+    );
+    getRemainingFunds().then((fetchedFunds) => {
+      setCurrentFunds(fetchedFunds.funds);
+    })
+  },[])
   const noBoxesChecked = checkboxes.every((checkbox) => checkbox.checked == false);
   const selectedInvestments = checkboxes.filter((checkbox) => checkbox.checked == true);
   const selectedIds = selectedInvestments.map((selected) => selected.id);
