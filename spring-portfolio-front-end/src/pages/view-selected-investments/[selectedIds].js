@@ -14,7 +14,10 @@ export default function SelectedInvestments() {
   const [investments, setInvestments] = useState([]);
   const router = useRouter();
   const { selectedIds } = router.query;
-  const splitIds= selectedIds.split(",");
+  let splitIds = [];
+  if (selectedIds) {
+    splitIds = selectedIds.split(",");
+  }
   const selected = splitIds.map((select) => parseInt(select));
   const selectedInvestments = investments.filter((investment) => selected.includes(investment.investmentId));
   const [currentPage, setCurrentPage] = useState(null);
